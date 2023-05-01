@@ -3,38 +3,39 @@ package ru.bstu.akudrenko;
 import ru.bstu.akudrenko.vehicles.base.Vehicle;
 import ru.bstu.akudrenko.vehicles.factory.VehicleFactory;
 import ru.bstu.akudrenko.vehicles.scanner.ConsoleVehicleScanner;
-import ru.bstu.akudrenko.vehicles.truck.Truck;
-import ru.bstu.akudrenko.vehicles.truck.TruckInitOptions;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
+    private final static Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) {
         var factory = new VehicleFactory();
+        var vehicleScanner = new ConsoleVehicleScanner();
 
-        var options = new TruckInitOptions();
+        var optionsCount = getOptionsCount();
+        List<Vehicle<?>> vehicles = new ArrayList<>(optionsCount);
 
-        options.brand = "Chevy Cobalt";
-        options.loadCapacity = 1172;
-        options.licensePlate = "M069AN31RUS";
-        options.topSpeed = 175;
-
-        Truck chevyCobalt = factory.create(options);
-
-        List<Vehicle<?>> vehicles = new ArrayList<>();
+        for (int idx = 0; idx < optionsCount; idx++) {
+            vehicles.add(factory.create(vehicleScanner.scanOptions()));
+        }
 
         vehicles.stream()
                 .max(Comparator.comparingInt(Vehicle::getLoadCapacity))
-                .ifPresent((v) -> System.out.println(v.getLoadCapacity()));
+                .ifPresent(v -> System.out.println("Vehicle with max load capacity.\n" + v));
+    }
 
-        //System.out.println("Instance " + chevyCobalt.getLoadCapacity());
+    private static int getOptionsCount() {
+        System.out.println("Please enter count of options.");
+        try {
+            var count = scanner.nextInt();
 
-        var scanner = new ConsoleVehicleScanner();
-
-        //var options = scanner.scanOptions();
-
-        System.out.println(chevyCobalt.toString());
+            return Math.max(count, 0);
+        } catch (Exception e) {
+            return 0;
+        }
     }
 }
