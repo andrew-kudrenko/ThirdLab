@@ -30,12 +30,12 @@ public class ConsoleVehicleScanner {
     }
 
     private String getOptionsKind() {
-        System.out.println("What kind of a vehicle?\n> ");
-        return scanner.next().trim();
+        System.out.print("\nWhat kind of a vehicle?\n> ");
+        return scanner.nextLine().trim();
     }
 
     private void printAvailableOptionKinds() {
-        System.out.println("It's possible to create one of these vehicles:");
+        System.out.println("\nIt's possible to create one of these vehicles:");
         availableOptionKinds.forEach((k) -> System.out.println("\t~ " + k));
     }
 
@@ -55,7 +55,7 @@ public class ConsoleVehicleScanner {
         var prelude = label + " `" + field.getName() + "` [" + typeName + "]> ";
 
         System.out.print(prelude);
-        return scanner.next().trim();
+        return scanner.nextLine().trim();
     }
 
     private List<Field> getScannableFields(VehicleInitOptions options) {

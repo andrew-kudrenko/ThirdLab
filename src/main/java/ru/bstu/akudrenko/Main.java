@@ -29,11 +29,10 @@ public class Main {
     }
 
     private static int getOptionsCount() {
-        System.out.println("Please enter count of options.");
-        try {
-            var count = scanner.nextInt();
+        System.out.print("Please enter count of options.\n> ");
 
-            return Math.max(count, 0);
+        try {
+            return Math.max(scanner.nextInt(), 0);
         } catch (Exception e) {
             return 0;
         }
