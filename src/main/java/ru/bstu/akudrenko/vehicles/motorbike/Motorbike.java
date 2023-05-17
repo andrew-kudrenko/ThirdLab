@@ -1,17 +1,15 @@
 package ru.bstu.akudrenko.vehicles.motorbike;
 
-import ru.bstu.akudrenko.utils.serialization.SerializeField;
+import ru.bstu.akudrenko.utils.serialization.Serialize;
 import ru.bstu.akudrenko.vehicles.base.Vehicle;
-
-import java.util.Optional;
 
 import static ru.bstu.akudrenko.vehicles.motorbike.MotorbikeCarriage.DEFAULT_LOAD_CAPACITY;
 
 public class Motorbike extends Vehicle<MotorbikeInitOptions> {
-    @SerializeField
+    @Serialize
     private boolean hasCarriage = false;
 
-    private Optional<MotorbikeCarriage> carriage = Optional.empty();
+    private MotorbikeCarriage carriage;
 
     @Override
     public void init(MotorbikeInitOptions options) {
@@ -26,10 +24,10 @@ public class Motorbike extends Vehicle<MotorbikeInitOptions> {
 
     @Override
     public int getLoadCapacity() {
-      return carriage.isEmpty() ? loadCapacity : loadCapacity + carriage.get().getLoadCapacity();
+      return carriage == null ? loadCapacity : loadCapacity + carriage.getLoadCapacity();
     }
 
-    private Optional<MotorbikeCarriage> createDefaultCarriage() {
-        return Optional.of(new MotorbikeCarriage(DEFAULT_LOAD_CAPACITY));
+    private static MotorbikeCarriage createDefaultCarriage() {
+        return new MotorbikeCarriage(DEFAULT_LOAD_CAPACITY);
     }
 }

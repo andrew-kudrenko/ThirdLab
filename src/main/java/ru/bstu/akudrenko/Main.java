@@ -4,10 +4,8 @@ import ru.bstu.akudrenko.vehicles.base.Vehicle;
 import ru.bstu.akudrenko.vehicles.factory.VehicleFactory;
 import ru.bstu.akudrenko.vehicles.scanner.ConsoleVehicleScanner;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.IntStream;
 
 public class Main {
     private final static Scanner scanner = new Scanner(System.in);
@@ -19,9 +17,10 @@ public class Main {
         var optionsCount = getOptionsCount();
         List<Vehicle<?>> vehicles = new ArrayList<>(optionsCount);
 
-        for (int idx = 0; idx < optionsCount; idx++) {
-            vehicles.add(factory.create(vehicleScanner.scanOptions()));
-        }
+        IntStream.range(0, optionsCount).forEach(n -> vehicles.add(factory.create(vehicleScanner.scanOptions())));
+
+        System.out.println("\n" + "*".repeat(20) + "\nAll of the vehicles.");
+        vehicles.forEach(v -> System.out.println(v + "\n"));
 
         vehicles.stream()
                 .max(Comparator.comparingInt(Vehicle::getLoadCapacity))

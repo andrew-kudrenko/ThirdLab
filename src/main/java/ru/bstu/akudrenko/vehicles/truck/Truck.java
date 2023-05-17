@@ -1,10 +1,10 @@
 package ru.bstu.akudrenko.vehicles.truck;
 
-import ru.bstu.akudrenko.utils.serialization.SerializeField;
+import ru.bstu.akudrenko.utils.serialization.Serialize;
 import ru.bstu.akudrenko.vehicles.base.Vehicle;
 
 public class Truck extends Vehicle<TruckInitOptions> {
-    @SerializeField
+    @Serialize
     private boolean hasTrailer = false;
 
     @Override

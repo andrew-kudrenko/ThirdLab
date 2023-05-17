@@ -1,19 +1,18 @@
 package ru.bstu.akudrenko.vehicles.base;
 
-import ru.bstu.akudrenko.utils.serialization.SerializeField;
+import ru.bstu.akudrenko.utils.serialization.Serialize;
 import ru.bstu.akudrenko.utils.serialization.Serializer;
 
 public abstract class Vehicle<Options extends VehicleInitOptions> {
-    @SerializeField
+    @Serialize
     protected String brand;
 
-    @SerializeField
+    @Serialize
     protected String licensePlate;
 
-    @SerializeField
+    @Serialize
     protected int topSpeed;
 
-    @SerializeField
     protected int loadCapacity = 0;
 
     public void init(Options options) {
@@ -23,6 +22,7 @@ public abstract class Vehicle<Options extends VehicleInitOptions> {
         loadCapacity = options.loadCapacity;
     }
 
+    @Serialize
     public int getLoadCapacity() {
         return loadCapacity;
     }
